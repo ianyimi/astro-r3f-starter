@@ -7,7 +7,7 @@ import compress from "astro-compress"
 import AstroPWA from "@vite-pwa/astro"
 
 // Helper imports
-import { manifest, seoConfig } from "~/utils/seoConfig"
+import { manifest, seoConfig } from "./src/utils/seoConfig"
 
 export default defineConfig({
 	site: seoConfig.baseURL,
