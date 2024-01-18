@@ -4,7 +4,7 @@ import { defineConfig } from "astro/config"
 import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
 import compress from "astro-compress"
-import { VitePWA } from "vite-plugin-pwa"
+import AstroPWA from "@vite-pwa/astro"
 
 // Helper imports
 import { manifest, seoConfig } from "./utils/seoConfig"
@@ -13,17 +13,14 @@ export default defineConfig({
 	site: seoConfig.baseURL,
 	integrations: [
 		tailwind({
-			config: {
-				applyBaseStyles: false,
-				path: "./tailwind.config.js"
-			}
+			applyBaseStyles: false,
 		}),
 		sitemap(),
 		compress()
 	],
 	vite: {
 		plugins: [
-			VitePWA({
+			AstroPWA({
 				registerType: "autoUpdate",
 				manifest,
 				workbox: {
