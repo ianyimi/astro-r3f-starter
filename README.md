@@ -67,13 +67,13 @@ When you create a new page, place it inside the `/src/pages/` directory and make
 
 ```html
 ---
-import { Layout } from "@globals"
+import { Layout } from "~/dom"
 ---
 
 <Layout title="Home Page"> // ... </Layout>
 ```
 
-You'll notice we imported the component from `@globals`, we'll talk about that later.
+You'll notice we imported the component from `~/dom`, we'll talk about that later.
 
 The `<Layout />` global component is responsible for rendering your website's `<header />`, `<main />`, and `<footer />` tags. Not only that, it also injects page-specific SEO such as a page title and description. Refer to the documentation on `<Layout />` to see what props you can pass to it.
 
@@ -110,7 +110,7 @@ Doing a directory-based approach and named export is good for two reasons:
 When you want to use `<HelloWorld />`, you can import it using our handy-dandy import aliases:
 
 ```ts
-import { HelloWorld } from "@component/HelloWorld"
+import { HelloWorld } from "~/components/HelloWorld"
 ```
 
 Again, we'll talk about import aliasing in more detail in a bit!
@@ -136,9 +136,9 @@ It's straightforward but just to make it clear:
 You can then reference your static assets using an import alias like so:
 
 ```
-import MyAwesomeImage from "@img/my-awesome-image.png"
-import SVGBackground from "@svg/svg-background.svg"
-import SomeIcon from "@icon/some-icon.svg
+import MyAwesomeImage from "~/assets/svg/my-awesome-image.png"
+import SVGBackground from "~/assets/svg/svg-background.svg"
+import SomeIcon from "~/assets/svg/icon/some-icon.svg
 ```
 
 Again we will talk about import aliases in more detail soon!
@@ -174,7 +174,7 @@ We briefly mentioned it before but the global `<Layout />` component also handle
 
 ```html
 ---
-import { Layout } from "@globals"
+import { Layout } from "~/dom"
 ---
 
 <Layout title="Home Page" description="Welcome to my website's homepage!">
@@ -186,7 +186,7 @@ If you're working with an error page like `404.astro`, then you can pass a `disa
 
 ```html
 ---
-import { Layout } from "@globals"
+import { Layout } from "~/dom"
 ---
 
 <Layout title="Not Found" disableIndexing="{true}"></Layout>
@@ -220,8 +220,8 @@ import SomeImage from "../../assets/img/some-image.png"
 You instead can do something more streamlined:
 
 ```ts
-import { MyComponent } from "@component/MyComponent"
-import SomeImage from "@img/some-image.png"
+import { MyComponent } from "~/components/MyComponent"
+import SomeImage from "~/assets/img/some-image.png"
 ```
 
 The best part about this is that **you can use an import alias at any level in your website** and still be able to access the asset you're trying to reach. No more `../../../../` hell.
@@ -230,13 +230,13 @@ For quick reference, here's a list of all import aliases available to you:
 
 | Alias          | Purpose                             | Example                                                 |
 | -------------- | ----------------------------------- | ------------------------------------------------------- |
-| `@globals`     | Fetch global components             | `import { Layout } from "@globals`                      |
-| `@component/*` | Fetch regular components            | `import { PriceTable } from "@component/PriceTable`     |
-| `@util/*`      | Import utilities                    | `import { seoConfig, manifest } from "@util/seoConfig"` |
-| `@img/*`       | Imports images                      | `import MyImage from "@img/my-image.png"`               |
-| `@svg/*`       | Imports SVGs                        | `import MySVG from "@svg/my-svg.svg`                    |
-| `@icon/*`      | Imports SVG icons from `/svg/icons` | `import MyIcon from "@icon/my-icon.svg`                 |
-| `@style/*`     | Fetches stylesheets                 | `import "@style/tailwind.css"`                          |
+| `~/dom`     | Fetch global components             | `import { Layout } from "~/dom`                      |
+| `~/components/*` | Fetch regular components            | `import { PriceTable } from "~/components/PriceTable`     |
+| `~/utils/*`      | Import utilities                    | `import { seoConfig, manifest } from "~/utils/seoConfig"` |
+| `~/assets/img/*`       | Imports images                      | `import MyImage from "~/assets/img/my-image.png"`               |
+| `~/assets/img/*`       | Imports SVGs                        | `import MySVG from "~/assets/img/my-svg.svg`                    |
+| `~/assets/svg/icon/*`      | Imports SVG icons from `/svg/icons` | `import MyIcon from "~/assets/svg/icon/my-icon.svg`                 |
+| `~/styles/*`     | Fetches stylesheets                 | `import "~/styles/tailwind.css"`                          |
 
 ## 📖 Documentation
 
@@ -338,11 +338,11 @@ Assets contains all images, svgs, and icons used in the website. It is placed in
 
 Contains all images for use on the website. You should not place .svg files in this directory.
 
-Images are accessible to the website via the `@img/*` import alias. You can import images like this:
+Images are accessible to the website via the `~/assets/img/*` import alias. You can import images like this:
 
 ```html
 ---
-import BackgroundImage from "@img/background-image.png"
+import BackgroundImage from "~/assets/img/background-image.png"
 ---
 
 <img src="{BackgroundImage}" alt="A sunny blue sky" />
@@ -352,11 +352,11 @@ import BackgroundImage from "@img/background-image.png"
 
 Contains all SVGs the website uses. You should not place .jpg | .png | .webp or other image-based files into this directory.
 
-SVGs can be imported using the `@svg/*` import alias. You can import SVGs like this:
+SVGs can be imported using the `~/assets/img/*` import alias. You can import SVGs like this:
 
 ```html
 ---
-import WavyPatterns from "@svg/wavy-patterns.svg"
+import WavyPatterns from "~/assets/img/wavy-patterns.svg"
 ---
 
 <img src="{WavyPatterns}" alt="" />
@@ -366,17 +366,17 @@ import WavyPatterns from "@svg/wavy-patterns.svg"
 
 Contains all icons that the website will use. Only .svg files should go in here.
 
-You can import icons using the @svg/icons/\* import alias.
+You can import icons using the ~/assets/img/icons/\* import alias.
 
 #### `/components/`
 
 Defines site-wide components. Every component should be placed inside a directory that has the same name as the exported component.
 
-Components can be imported using the `@component/*` import alias. For example:
+Components can be imported using the `~/components/*` import alias. For example:
 
 ```html
 ---
-import {CustomComponent} from "@component/CustomComponent"
+import {CustomComponent} from "~/components/CustomComponent"
 ---
 
 <CustomComponent />
@@ -404,7 +404,7 @@ Refer to the following as an example of how to set SEO:
 
 ```html
 ---
-import {Layout} from "@utils"
+import {Layout} from "~/utilss"
 ---
 
 <Layout title="Page title" description="This is the page description">
@@ -452,12 +452,12 @@ Refer to [Astro's docs on typed environment variables](https://docs.astro.build/
 
 Defines external utilities for the website. These can be third-party scripts that require additional setup and configuration, packages such as `graphql-request` or `firebase`, or configuration files written in TypeScript.
 
-All utilities can be imported into the website using the `@util/*` import alias, example:
+All utilities can be imported into the website using the `~/utils/*` import alias, example:
 
 ```html
 ---
 // ...
-import { seoConfig } from "@util/seoConfig"
+import { seoConfig } from "~/utils/seoConfig"
 ---
 
 // seoConfig is now a useable object
