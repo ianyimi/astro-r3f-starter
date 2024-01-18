@@ -1,0 +1,29 @@
+{
+	"name": "astro-pwa-starter",
+	"version": "0.0.0",
+	"private": false,
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"devDependencies": {
+		"@astrojs/sitemap": "^2.0.2",
+		"@astrojs/tailwind": "^4.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.4.0",
+		"@typescript-eslint/parser": "^6.4.0",
+		"astro": "2.10.9",
+		"astro-compress": "^2.0.12",
+		"astro-seo": "^0.7.5",
+		"eslint": "^8.47.0",
+		"eslint-plugin-astro": "^0.28.0",
+		"eslint-plugin-jsx-a11y": "^6.7.1",
+		"prettier": "^3.0.2",
+		"prettier-plugin-astro": "^0.11.1",
+		"prettier-plugin-tailwindcss": "^0.5.3",
+		"typescript": "^5.1.6",
+		"vite-plugin-pwa": "^0.16.4"
+	}
+}
