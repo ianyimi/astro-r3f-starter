@@ -5,18 +5,33 @@ import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
 import compress from "astro-compress"
 import AstroPWA from "@vite-pwa/astro"
-
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { SITE } from './src/config.mjs';
+import react from "@astrojs/react";
 // Helper imports
 import { manifest, seoConfig } from "./src/utils/seoConfig"
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
-	site: seoConfig.baseURL,
+	site: SITE.origin,
+  base: SITE.basePathname,
+  trailingSlash: SITE.trailingSlash ? 'always' : 'never',
 	integrations: [
+		react(),
 		tailwind({
 			applyBaseStyles: false,
 		}),
 		sitemap(),
-		compress()
+		compress({
+			CSS: true,
+			HTML: true,
+			Image: false,
+			JavaScript: true,
+			SVG: false,
+			Logger: 1
+		})
 	],
 	vite: {
 		plugins: [
@@ -33,6 +48,14 @@ export default defineConfig({
 				  navigateFallback: null,
 				},
 			})
-		]
+		],
+		ssr: {
+      noExternal: ['usehooks-ts']
+    },
+		resolve: {
+      alias: {
+        '~': path.resolve(__dirname, './src')
+      }
+    }
 	}
 })

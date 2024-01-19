@@ -4,6 +4,8 @@ import { SEO } from "astro-seo"
 
 // Style imports
 import "~/styles/tailwind.css"
+import BasicScripts from "~/components/dom/common/BasicScripts.astro"
+import Scene from "~/components/canvas/Scene"
 
 // Helper imports
 import { seoConfig } from "~/utils/seoConfig"
@@ -162,9 +164,24 @@ const {
 		<link rel="manifest" href="/manifest.webmanifest" />
 	</head>
 	<body class="min-h-screen flex flex-col w-full overflow-x-hidden">
-		<main class="flex flex-1 flex-col h-[100%] w-full">
-			<slot />
-		</main>
+		<main id="main" class="antialiased text-page bg-light dark:text-slate-300 tracking-tight dark:bg-dark">
+      <div id="domContent" class="z-0 fixed inset-0 overflow-y-scroll">
+        <div id="wrapper" class="absolute overflow-x-hidden min-w-[100%] min-h-[100%] top-0">
+          <div data-lenis-prevent id="content" class="relative min-h-[100vh]">
+            <slot />
+          </div>
+        </div>
+      </div>
+      <BasicScripts />
+      <div class="-z-[1] fixed top-0 left-0 min-w-[100%] min-h-[100%]">
+        <Scene client:only="react" />
+      </div>
+      <style is:global>
+        img {
+          content-visibility: auto;
+        }
+      </style>
+    </main>
 
 		<script>
 			// This is a hack to get vite-plugin-pwa to generate a sw.js file.

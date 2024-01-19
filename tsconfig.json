@@ -13,6 +13,16 @@
 			"~/*": [
 				"src/*"
 			]
-		}
-	}
+		},
+		"jsx": "react-jsx",
+		"jsxImportSource": "react"
+	},
+	"include": [
+		"src/**/*",
+		"modules.d.ts",
+	],
+	"files": [
+		"node_modules/@types/three/index.d.ts",
+		"node_modules/@14islands/r3f-scroll-rig/dist/index.d.ts"
+	]
 }
