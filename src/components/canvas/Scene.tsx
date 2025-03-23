@@ -2,13 +2,17 @@
 
 import { AdaptiveDpr, Bvh, Preload, Box, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import { GlobalCanvas } from '@14islands/r3f-scroll-rig'
 import { isMobile } from 'react-device-detect'
+import { Canvas } from '@react-three/fiber'
+import { Vector3 } from 'three'
 // import Menu from './Menu'
+import { extend } from "@react-three/fiber"
+
+extend(THREE as any)
 
 const defaultCanvasProps = {
   gl: {
-    powerPreference: 'high-performance',
+    // powerPreference: 'high-performance',
     antialias: true,
     depth: true,
     // alpha: false,
@@ -20,11 +24,11 @@ const defaultCanvasProps = {
     fov: 75,
     zoom: isMobile ? 0.75 : 1,
     // makeDefault: true,
-    position: [0, 0, 5],
+    position: new Vector3(0, 0, 5),
     // quaternion: quaternion,
   },
-  // resize: { polyfill: ResizeObserver },
-  // dpr: window.devicePixelRatio,
+  resize: { polyfill: ResizeObserver },
+  dpr: window.devicePixelRatio,
   // events: undefined,
 }
 
@@ -32,7 +36,7 @@ export default function Scene() {
   // Everything defined in here will persist between route changes, only children are swapped
   const content = document.getElementById('content')
   return (
-    <GlobalCanvas
+    <Canvas
       id='canvas'
       dpr={window.devicePixelRatio}
       {...defaultCanvasProps}
@@ -52,12 +56,13 @@ export default function Scene() {
         <AdaptiveDpr />
         <Preload all />
         <OrbitControls />
+				{/* @ts-expect-error */}
         <Box args={[1, 1, 1]}><meshBasicMaterial color='hotpink' /></Box>
         {/* <Menu /> */}
       </Bvh>
       {/* @ts-ignore */}
 
       <Preload all />
-    </GlobalCanvas>
+    </Canvas>
   )
 }
