@@ -19,7 +19,7 @@
 	},
 	"include": [
 		"src/**/*",
-		"modules.d.ts",
+		"modules.d.ts"
 	],
 	"files": [
 		"node_modules/@types/three/index.d.ts",
