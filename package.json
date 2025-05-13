@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@astrojs/react": "^4.2.7",
 		"@radix-ui/react-slot": "^1.2.2",
+		"@react-spring/web": "^9.7.5",
 		"@react-three/drei": "^10.0.5",
 		"@react-three/fiber": "^9.1.0",
 		"@tailwindcss/vite": "^4.1.6",

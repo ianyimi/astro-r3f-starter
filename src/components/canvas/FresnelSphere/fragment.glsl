@@ -1,4 +1,5 @@
 uniform float uTime;
+uniform float uTheme;
 uniform vec3 args;
 
 varying vec3 vWorldPosition;
@@ -11,8 +12,9 @@ void main() {
 	vec2 uv = vUv;
 
 	vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
-	float fresnel = dot(viewDirection, vWorldNormal);
-	fresnel = pow(fresnel, 3.0);
+	float invertedFresnel = dot(viewDirection, vWorldNormal);
+	float fresnel = 1.0 - invertedFresnel;
+	invertedFresnel = pow(invertedFresnel, 3.0);
 
-	gl_FragColor = vec4(vec3(fresnel), 1);
+	gl_FragColor = vec4(vec3(mix(fresnel, invertedFresnel, uTheme)), 1);
 }
