@@ -3,7 +3,7 @@
 import { SEO } from "astro-seo"
 
 // Style imports
-import "~/styles/tailwind.css"
+import "~/styles/global.css"
 import BasicScripts from "~/components/dom/common/BasicScripts.astro"
 import Scene from "~/components/canvas/Scene"
 
@@ -72,6 +72,16 @@ const {
 		<!-- Global meta tags. -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Nightwind dark mode script -->
+		<script is:inline>
+			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+			if (localStorage.getItem('nightwind-mode') === 'dark' || (!('nightwind-mode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 
 		<!-- Favicons. -->
 		<link

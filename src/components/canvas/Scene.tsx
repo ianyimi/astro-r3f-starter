@@ -1,12 +1,12 @@
 'use client'
 
-import { AdaptiveDpr, Bvh, Preload, Box, OrbitControls } from '@react-three/drei'
+import { AdaptiveDpr, Bvh, Preload, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { isMobile } from 'react-device-detect'
 import { Canvas } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import { extend } from "@react-three/fiber"
-import { useEffect, useState } from 'react'
+import FresnelSphere from "./FresnelSphere"
 
 extend(THREE as any)
 
@@ -33,15 +33,6 @@ const defaultCanvasProps = {
 }
 
 export default function Scene() {
-	const [boxHover, setBoxHover] = useState();
-	useEffect(() => {
-		const body = document.getElementsByTagName("body")[0]
-		if (boxHover) {
-			body.style.cursor = "pointer"
-		} else {
-			body.style.cursor = "default"
-		}
-	}, [boxHover])
   // Everything defined in here will persist between route changes, only children are swapped
   const content = document.getElementById('content')
   return (
@@ -65,11 +56,9 @@ export default function Scene() {
         <AdaptiveDpr />
         <Preload all />
         <OrbitControls />
-				{/* @ts-expect-error */}
-        <Box args={[1, 1, 1]} onClick={() => console.log('clicked box')} onPointerOver={() => setBoxHover(true)} onPointerOut={() => setBoxHover(false)}><meshBasicMaterial color={boxHover ? 'yellow' : 'hotpink'} /></Box>
       </Bvh>
-      {/* @ts-ignore */}
-
+			<FresnelSphere />
+			<ambientLight intensity={1} />
       <Preload all />
     </Canvas>
   )
