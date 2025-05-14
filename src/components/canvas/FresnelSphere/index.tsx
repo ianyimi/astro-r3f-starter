@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { type Mesh, type ShaderMaterial, Vector3 } from "three";
+import { useCappedFrame } from "~/hooks/useCappedFrame";
+import { SpringValue } from "@react-spring/web";
 
 // @ts-expect-error shader files
 import fragmentShader from "./fragment.glsl"
 // @ts-expect-error shader files
 import vertexShader from "./vertex.glsl"
-import { type Mesh, type ShaderMaterial, Vector3 } from "three";
-import { useCappedFrame } from "~/hooks/useCappedFrame";
-import { SpringValue } from "@react-spring/web";
 
 export default function Cube() {
 	const [boxHover, setBoxHover] = useState(false);
