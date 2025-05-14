@@ -4,7 +4,7 @@ module.exports = {
     es2022: true,
     browser: true,
   },
-  extends: ['airbnb', 'plugin:astro/recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:astro/recommended'],
+  extends: ['plugin:astro/recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:astro/recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
     ecmaFeatures: {
@@ -75,7 +75,7 @@ module.exports = {
     {
       files: ['*.js, *.jsx, *.ts, *.tsx'],
       parser: '@typescript-eslint/parser',
-      extends: ['airbnb', 'prettier', 'plugin:@typescript-eslint/recommended'],
+      extends: ['prettier', 'plugin:@typescript-eslint/recommended'],
       plugins: ['@typescript-eslint', 'prettier', 'simple-import-sort'],
       rules: {
         '@typescript-eslint/no-unused-vars': [
